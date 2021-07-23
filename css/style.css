@@ -96,10 +96,7 @@ body{
     background-color: #FFF;
     max-width:285px;
 }
-.lineThrough{
-    text-decoration: line-through;
-    color : #ccc;
-}
+
 .item i.de{
     position: absolute;
     font-size: 25px;
