@@ -12,7 +12,9 @@ body{
     width:380px;
     margin:0 auto;
 }
-
+.fa-check-circle{
+    content: "\f058";
+}
 /* ------------ header ------------ */
 .header{
     width: 380px;
@@ -124,9 +126,9 @@ body{
 
 .add-to-do input{
     position: absolute;
-    left: 50px;
+    left: 70px;
     height: 35px;
-    width: 310px;
+    width: 280px;
     background-color: transparent;
     border: none;
     font-size: 20px;
@@ -169,3 +171,24 @@ color: yellow;
 color:red;
 }
 
+.button {
+    bottom: 3px;
+    font-size: 23px;
+    padding: 10px 15px;
+    background: #3f0069;
+    border: unset;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 2px #000;
+    outline: 0;
+    position: relative;
+  }
+  .button:before {
+    content: "\f055";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }

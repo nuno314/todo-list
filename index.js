@@ -2,6 +2,7 @@ const clear = document.querySelector(".clear");
 const dateElement = document.getElementById("date");
 const list = document.getElementById("list");
 const input = document.getElementById("input");
+const addButton = document.querySelector(".button");
 
 const TODO = "red-color";
 const IN_PROGRESS = "yellow-color";
@@ -52,23 +53,36 @@ function addToDo(toDo, id, statusID, remove) {
   list.insertAdjacentHTML(position, text);
 }
 
+const get = () => {
+  const toDo = input.value;
+  if (toDo) {
+    addToDo(toDo, id, 0, false);
+    toDoList.push({
+      name: toDo,
+      ID: id,
+      statusID: 0,
+      remove: false,
+    });
+    id++;
+    localStorage.setItem("TODO", JSON.stringify(toDoList));
+  };
+  input.value = "";
+};
+
+
 document.addEventListener("keyup", (e) => {
   if (e.keyCode == 13) {
-    const toDo = input.value;
-    if (toDo) {
-      addToDo(toDo, id, 0, false);
-      toDoList.push({
-        name: toDo,
-        ID: id,
-        statusID: 0,
-        remove: false,
-      });
-      id++;
-      localStorage.setItem("TODO", JSON.stringify(toDoList));
+      get();
     }
-    input.value = "";
-  }
 });
+
+addButton.addEventListener("click", () => {
+  if (input.value != "") 
+    get();
+})
+
+
+
 
 const completeToDo = (element) => {
   let statusID = toDoList[element.id].statusID;
