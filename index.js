@@ -13,7 +13,7 @@ let data = localStorage.getItem("TODO");
 
 let toDoList = [];
 let id;
-console.log(toDoList);
+
 const loadList = (array) => {
   array.forEach((element) => {
     addToDo(element.name, element.ID, element.statusID, element.remove);
@@ -45,13 +45,30 @@ function addToDo(toDo, id, statusID, remove) {
 
   const text = `<li class="item">
     <i class="fas fa-circle ${STATUS[statusID]} co" job="complete" id="${id}"></i>
-    <p class="text">${toDo}</p>
+    <p class="text" id="text">${toDo}</p>
+    <i class="ed fa fa-edit" job="edit" id="${id}"></i>
     <i class="de fa fa-trash" job="remove" id="${id}"></i>
   </li>`;
 
   const position = "beforeend";
   list.insertAdjacentHTML(position, text);
 }
+
+input.addEventListener(
+  "focus",
+  (event) => {
+    event.target.style.background = "pink";
+  },
+  true
+);
+
+input.addEventListener(
+  "blur",
+  (event) => {
+    event.target.style.background = "";
+  },
+  true
+);
 
 const get = () => {
   const toDo = input.value;
@@ -65,24 +82,19 @@ const get = () => {
     });
     id++;
     localStorage.setItem("TODO", JSON.stringify(toDoList));
-  };
+  }
   input.value = "";
 };
 
-
 document.addEventListener("keyup", (e) => {
   if (e.keyCode == 13) {
-      get();
-    }
+    get();
+  }
 });
 
 addButton.addEventListener("click", () => {
-  if (input.value != "") 
-    get();
-})
-
-
-
+  if (input.value != "") get();
+});
 
 const completeToDo = (element) => {
   let statusID = toDoList[element.id].statusID;
@@ -103,6 +115,28 @@ const removeToDo = (element) => {
   toDoList[element.id].remove = true;
 };
 
+const editToDo = (element) => {
+  let text = element.parentNode.children[1];
+  text.contentEditable = true;
+  text.addEventListener(
+    "focus",
+    (event) => {
+      event.target.style.background = "pink";
+    },
+    true
+  );
+  text.addEventListener(
+    "blur",
+    (event) => {
+      event.target.style.background = "";
+    },
+    true
+  );
+
+  element.classList.toggle("fa fa-edit");
+  
+};
+
 list.addEventListener("click", (e) => {
   const element = e.target;
   const elementJob = element.attributes.job.value;
@@ -113,6 +147,10 @@ list.addEventListener("click", (e) => {
 
   if (elementJob == "remove") {
     removeToDo(element);
+  }
+
+  if (elementJob == "edit") {
+    editToDo(element);
   }
 
   localStorage.setItem("TODO", JSON.stringify(toDoList));
